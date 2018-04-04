@@ -32,7 +32,14 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] bubbleSort(final int[] array) {
-        return null;
+        for (int i = 1; i < array.length; i++) {
+            while (array[i] < array[i - 1]) {
+                int temp = array[i];
+                array[i] = array[i - 1];
+                array[i - 1] = temp;
+            }
+        }
+        return array;
     }
 
     /**
@@ -42,8 +49,29 @@ public class Sorting {
      * @return the sorted array, or null on failure
      */
     @SuppressWarnings("unused")
-    private static int[] selectionSort(final int[] array) {
-        return null;
+    static int lo = 0;
+    public static int[] selectionSort(final int[] array) {
+        int hi = array.length;
+        if (lo < hi) {
+            swap(array, lo, findMin(array, lo, hi));
+            lo++;
+            selectionSort(array);
+        }
+        return array;
+    }
+    public static int findMin(int[] array, int lo, int hi) {
+        int min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+        return min;
+    }
+    public static void swap(int[] array, int first, int second) {
+        int temp = array[first];
+        array[first] = array[second];
+        array[second] = temp;
     }
 
     /**
@@ -175,7 +203,7 @@ public class Sorting {
          */
         int whichAlgorithm;
         while (true) {
-            System.out.println("Enter the sorting algorithm that you want to use"
+            System.out.println("Enter sorting algorithm that you want to use"
                     + " (1 for bubble sort, 2 for insertion sort, 3 for merge sort, 4 for built-in): ");
             whichAlgorithm = userInput.nextInt();
             if (whichAlgorithm > 0 && whichAlgorithm < 5) {
